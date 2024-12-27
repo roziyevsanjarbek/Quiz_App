@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\HasApiTokens;
 
-use PDO;
+use App\Traits\HasApiTokens;
 
 class User extends DB {
     use HasApiTokens;
