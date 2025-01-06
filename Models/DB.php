@@ -24,6 +24,10 @@ class DB
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             ]
         );
+    }
+
+    public function getConnectoin()
+    {
         return $this->conn;
     }
 }

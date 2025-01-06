@@ -19,7 +19,6 @@ class User extends DB {
         $userId = $this->conn->lastInsertId();
         $this->createApiTokens($userId);
         return true;
-
     }
 
     public function getUser(string $email, string $password){

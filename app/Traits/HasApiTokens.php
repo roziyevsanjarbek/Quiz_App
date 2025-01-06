@@ -4,7 +4,7 @@ namespace App\Traits;
 
 trait HasApiTokens
 {
-    protected string $api_token;
+    public string $api_token;
 
     protected string $duration;
 

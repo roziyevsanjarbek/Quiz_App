@@ -1,7 +1,7 @@
 <?php
 
-require 'boostrap.php';
+require '../boostrap.php';
 
-require 'routes/web.php';
+require '../routes/web.php';
 
 
