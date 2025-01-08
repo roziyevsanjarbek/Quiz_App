@@ -4,8 +4,6 @@ namespace Src;
 
 use App\Models\DB;
 
-use PDO;
-
 
 class Auth
 {

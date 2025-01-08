@@ -20,7 +20,7 @@ class UserController{
         $user->create($userData['fullName'], $userData['email'], $userData['password']);
         apiResponse([
             'message' => 'User created successfully',
-            'user' => $user->api_token
+            'token' => $user->api_token
         ], 201);
     }
 
@@ -34,7 +34,11 @@ class UserController{
        if ($user->getUser($userData['email'], $userData['password'])){
            apiResponse([
                'message' => 'User logged in successfully',
+               'token' => $user->api_token
            ]);
        }
+       apiResponse([
+           'message' => 'Invalid email or password',
+       ],401);
     }
 }

@@ -29,9 +29,8 @@ class User extends DB {
         ]);
         $user = $stmt->fetch();
         if($user && password_verify($password, $user['password'])){
-            return true;
-        }else{
-            return false;
+            $this->createApiTokens($user['id']);
+            return $user;
         }
 
 

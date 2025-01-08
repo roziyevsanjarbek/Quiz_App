@@ -2,6 +2,6 @@
 
 require '../boostrap.php';
 
-require '../routes/web.php';
+require '../router.php';
 
 
