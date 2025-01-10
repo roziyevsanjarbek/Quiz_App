@@ -14,7 +14,7 @@
             <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Create your account</h2>
             <p class="mt-2 text-center text-sm text-gray-600">
                 Already have an account?
-                <a href="login.html" class="font-medium text-indigo-600 hover:text-indigo-500">
+                <a href="/login" class="font-medium text-indigo-600 hover:text-indigo-500">
                     Sign in
                 </a>
             </p>
@@ -22,8 +22,8 @@
         <form class="mt-8 space-y-6" action="#" method="POST" id="form">
             <div class="rounded-md shadow-sm -space-y-px">
                 <div>
-                    <label for="name" class="sr-only">Full name</label>
-                    <input id="name" name="name" type="text" required
+                    <label for="fullName" class="sr-only">Full name</label>
+                    <input id="fullName" name="fullName" type="text" required
                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                            placeholder="Full name">
                 </div>

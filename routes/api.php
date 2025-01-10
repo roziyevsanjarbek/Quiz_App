@@ -8,3 +8,15 @@ Router::post('/api/register', [UserController::class, 'store']);
 Router::post('/api/login', [UserController::class, 'login']);
 
 
+
+
+
+
+
+
+
+
+
+Router::notFound();
+
+
