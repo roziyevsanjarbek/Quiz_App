@@ -41,4 +41,12 @@ class UserController{
            'message' => 'Invalid email or password',
        ],401);
     }
+
+    public function show()
+    {
+        apiResponse([
+            'name' => 'John Doe',
+            'email' => 'john@doe.com',
+        ]);
+ }
 }
