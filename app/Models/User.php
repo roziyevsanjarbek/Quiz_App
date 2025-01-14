@@ -32,8 +32,16 @@ class User extends DB {
             $this->createApiTokens($user['id']);
             return $user;
         }
+    }
 
-
+    public static function getUserById(int $id)
+    {
+        $query = "SELECT id, full_name, email, updated_at ,created_at FROM users WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            ':id' => $id
+        ]);
+        return $stmt->fetch();
     }
 
 }

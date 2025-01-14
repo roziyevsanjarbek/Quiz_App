@@ -13,7 +13,7 @@
         <div>
             <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
             <p class="mt-2 text-center text-sm text-gray-600">
-                <a href="register.html" class="font-medium text-indigo-600 hover:text-indigo-500">
+                <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
                     create a new account
                 </a>
             </p>
@@ -52,7 +52,7 @@
         </form>
     </div>
 </div>
-<script src="js/main.js"></script>
+<script src="js/login.js"></script>
 </body>
 </html>
 
