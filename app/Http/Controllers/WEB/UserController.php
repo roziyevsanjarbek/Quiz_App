@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\WEB;
 
+use JetBrains\PhpStorm\NoReturn;
+
 class UserController
 {
     public static function dashboard(): void
@@ -23,4 +25,9 @@ class UserController
     {
         view('dashboard/statistics');
 }
+
+  public static function handlePost(): void
+    {
+        dd($_REQUEST);
+    }
 }

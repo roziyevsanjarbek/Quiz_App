@@ -39,7 +39,7 @@ class UserController{
            ]);
        }
        apiResponse([
-           'error' => [
+           'errors' => [
                'message' => 'Invalid email or password',
            ]
        ],401);

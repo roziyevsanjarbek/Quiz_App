@@ -28,7 +28,7 @@ class Auth
     {
         $db = new DB();
         $pdo = $db->getConnectoin();
-        $query = "SELECT * FROM user_api_token WHERE token = :token and expired_at > NOW()";
+        $query = "SELECT * FROM user_api_token WHERE token = :token and expires_at >= NOW()";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
             ':token' => self::getToken()
@@ -54,6 +54,6 @@ class Auth
             ],401);
         }
         $user = new User();
-        return $user->getUserById($token->user_id);
+         return $user->getUserById($token['user_id']);
     }
 }

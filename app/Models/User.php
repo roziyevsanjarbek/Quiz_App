@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use App\Traits\HasApiTokens;
 
 class User extends DB {
@@ -34,9 +33,9 @@ class User extends DB {
         }
     }
 
-    public static function getUserById(int $id)
+    public function getUserById(int $id)
     {
-        $query = "SELECT id, full_name, email, updated_at ,created_at FROM users WHERE id = :id";
+        $query = "SELECT id, full_name, email FROM users WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
             ':id' => $id

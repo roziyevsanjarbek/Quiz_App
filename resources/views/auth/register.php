@@ -19,7 +19,7 @@
                 </a>
             </p>
         </div>
-        <form class="mt-8 space-y-6" action="#" method="POST" id="form">
+        <form id="form" class="mt-8 space-y-6" onsubmit="store()">
             <div class="rounded-md shadow-sm -space-y-px">
                 <div>
                     <label for="fullName" class="sr-only">Full name</label>
@@ -55,7 +55,7 @@
                     <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms and Conditions</a>
                 </label>
             </div>
-
+            <div id="error"></div>
             <div>
                 <button type="button" onclick="store()"
                         class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -65,7 +65,27 @@
         </form>
     </div>
 </div>
-<script src="js/register.js"></script>
+<script>
+    async function store() {
+        event.preventDefault();
+        let form = document.getElementById("form"),
+            formData = new FormData(form);
+        const {default: apiFetch} = await import("/js/utils/apiFetch.js");
+        await apiFetch("/register", {method: "POST", body: formData})
+            .then(data => {
+                localStorage.setItem('token', data.token);
+                window.location.href = '/dashboard';
+            })
+            .catch((error) => {
+                console.error(error.data.errors);
+                Object.keys(error.data.errors).forEach((err) => {
+                    document.getElementById("error").innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
+                });
+            });
+    }
+</script>
+
+
 </body>
 </html>
 
