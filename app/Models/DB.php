@@ -10,7 +10,7 @@ class DB
     private string $user;
     private string $pass;
     private string $db_name;
-    protected  $conn;
+    protected PDO $conn;
 
     public function __construct()
     {

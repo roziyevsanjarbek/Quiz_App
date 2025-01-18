@@ -26,8 +26,14 @@ class UserController
         view('dashboard/statistics');
 }
 
-  public static function handlePost(): void
-    {
-        dd($_REQUEST);
+    public static function take_quiz(): void{
+        view('quiz/take_quiz');
     }
+
+    public function update(int $id): void
+    {
+        view('dashboard/updateQuiz', [
+            'id' => $id
+        ]);
+  }
 }

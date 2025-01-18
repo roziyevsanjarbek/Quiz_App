@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
+
 use App\Traits\Validator;
-use JetBrains\PhpStorm\NoReturn;
+
 use Src\Auth;
 
 class UserController{
 
     use Validator;
-    #[NoReturn] public function store()
+    public function store()
     {
         $userData = $this->validate([
             'fullName' => 'string',

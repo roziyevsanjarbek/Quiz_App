@@ -1,6 +1,6 @@
 <?php components('dashboard/header');  ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="js/dashboard/getUserInfo.js"></script>
+<script src="/js/dashboard/getUserInfo.js"></script>
 <div class="bg-gray-100">
 <div class="min-h-screen flex">
     <!-- Sidebar -->
@@ -17,7 +17,7 @@
 
                     <div class="flex items-center space-x-2">
                         <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
-                        <span class="text-gray-700 font-medium">John Doe</span>
+                        <span class="text-gray-700 font-medium" id="userName">John Doe</span>
                     </div>
                 </div>
             </div>

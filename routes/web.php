@@ -15,8 +15,9 @@ Router::get('/dashboard', [UserController::class, 'dashboard']);
 Router::get('/dashboard/quizzes', [UserController::class, 'my_quizzes']);
 Router::get('/dashboard/create-quiz', [UserController::class, 'create_quiz']);
 Router::get('/dashboard/statistics', [UserController::class, 'statistics']);
+Router::get('/dashboard/take-quiz', [UserController::class, 'take_quiz']);
 
-Router::post('/dashboard/create-quiz', [UserController::class, 'handlePost']);
+Router::get('/dashboard/quizzes/{id}/update', [UserController::class, 'update']);
 
 
 
