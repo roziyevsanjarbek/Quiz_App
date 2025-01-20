@@ -70,7 +70,6 @@ class QuizController extends DB
             'questions' => 'array',
         ]);
 
-        dd($quizItems);
 
         $quiz = new Quiz();
         $question = new Question();
