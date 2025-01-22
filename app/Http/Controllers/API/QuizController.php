@@ -26,6 +26,8 @@ class QuizController extends DB
         ]);
     }
 
+
+
     public function store(): void
     {
         $quizItems = $this->validate([
@@ -99,6 +101,11 @@ class QuizController extends DB
             'message' => 'Quiz created successfully',
         ], 201);
 
+    }
+    public function show(int $quizId)
+    {
+        $quiz = (new Quiz())->find($quizId);
+        (new Question())->getWithOptions($quizId);
     }
 
     public function destroy(int $quizId)

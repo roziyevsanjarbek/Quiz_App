@@ -41,6 +41,16 @@ class Quiz extends DB
 
         ]);
     }
+
+    public function find(int $quizId)
+    {
+        $query = "SELECT * FROM quizzes WHERE id = :quizId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            ':quizId' => $quizId
+        ]);
+        return $stmt->fetch();
+    }
     public function delete(int $quizId): bool
     {
         $query = "DELETE FROM quizzes WHERE id = :quizId";
