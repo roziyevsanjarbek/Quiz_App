@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\DB;
+use PDO;
 
 class Quiz extends DB
 {
@@ -31,14 +32,13 @@ class Quiz extends DB
     }
     public function update(int $quizId, string $title, string $description, int $timeLimit): bool
     {
-        $query = "UPDATE quizzes SET title = :title, description = :description, timeLimit = :timeLimit WHERE id = :quizId";
+        $query = "UPDATE quizzes SET title=:title, description=:description, time_limit=:timeLimit WHERE id=:quizId";
         $stmt = $this->conn->prepare($query);
         return $stmt->execute([
-            'quizId' => $quizId,
-            'title' => $title,
-            'description' => $description,
-            'timeLimit' => $timeLimit,
-
+            ':quizId' => $quizId,
+            ':title' => $title,
+            ':description' => $description,
+            ':timeLimit' => $timeLimit,
         ]);
     }
 
@@ -49,7 +49,7 @@ class Quiz extends DB
         $stmt->execute([
             ':quizId' => $quizId
         ]);
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     public function delete(int $quizId): bool
     {

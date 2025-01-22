@@ -105,7 +105,9 @@ class QuizController extends DB
     public function show(int $quizId)
     {
         $quiz = (new Quiz())->find($quizId);
-        (new Question())->getWithOptions($quizId);
+        $questions = (new Question())->getWithOptions($quizId);
+        $quiz['questions'] = $questions;
+        apiResponse($quiz);
     }
 
     public function destroy(int $quizId)

@@ -34,6 +34,7 @@ class Question extends DB
         ]);
         $questions = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
+
         $questionsIds = array_column($questions, 'id');
         $placeholders = rtrim(str_repeat('?,', count($questionsIds)) , ',');
 
@@ -51,7 +52,7 @@ class Question extends DB
             $question['options'] = $groupedOptions[$question['id']] ?? [];
         }
 
-        apiResponse($questions);
+        return $questions;
 
     }
 }

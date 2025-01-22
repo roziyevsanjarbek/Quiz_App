@@ -76,7 +76,6 @@
             quizList = document.getElementById('quizList');
         await apiFetch("/quizzes", {method: "GET"})
             .then(data => {
-                console.log(data.data);
                 data.data.forEach((quiz) => {
                     quizList.innerHTML += `
                       <div class="bg-white rounded-lg shadow-sm p-6" >

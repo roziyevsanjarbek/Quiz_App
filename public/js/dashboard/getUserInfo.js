@@ -3,8 +3,6 @@ async function user() {
     await apiFetch( "/users/getInfo",  { method: "GET" } )
         .then((user) => {
             document.getElementById("userName").innerText = user.data.full_name;
-            console.log(user)
-            console.log(apiFetch)
         })
         .catch(( error ) => {
             if(error.status == 401){

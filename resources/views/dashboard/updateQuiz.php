@@ -17,7 +17,7 @@
                         <div class="flex items-center space-x-4">
 
                             <div class="flex items-center space-x-2">
-                                <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+<!--                                <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">-->
                                 <span class="text-gray-700 font-medium" id="userName">John Doe</span>
                             </div>
                         </div>
@@ -251,6 +251,7 @@
             const {default: apiFetch} = await import('/js/utils/apiFetch.js');
             await apiFetch(`/quizzes/${<?php echo $id; ?>}`, {method: 'GET'})
                 .then((data) => {
+                    console.log(data);
                     titleInput.value = data.title;
                     descriptionInput.value = data.description;
                     timeLimitInput.value = data.time_limit;
