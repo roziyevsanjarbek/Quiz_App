@@ -3,11 +3,13 @@
 
 use JetBrains\PhpStorm\NoReturn;
 
-function view(string $page, array $data = [])
+function view(string $page, array $data = []): void
 {
     extract($data);
     require 'resources/views/' . $page . '.php';
-}function components(string $component, array $data = [])
+}
+
+#[NoReturn] function components(string $component, array $data = []): void
 {
     extract($data);
     require 'resources/views/components/' . $component . '.php';

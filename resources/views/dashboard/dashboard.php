@@ -1,4 +1,4 @@
-<?php components('dashboard/header');?>
+<?php components('dashboard/header'); ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="bg-gray-100">
 <div class="min-h-screen flex">
@@ -117,7 +117,6 @@
 </div>
 </div>
 <script src="/js/dashboard/getUserInfo.js"></script>
-
 <?php components('dashboard/footer');  ?>
 
 

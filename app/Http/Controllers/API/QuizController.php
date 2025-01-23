@@ -110,6 +110,19 @@ class QuizController extends DB
         apiResponse($quiz);
     }
 
+    public function showByUniqueValue(string $uniqueValue)
+    {
+        $quiz = (new Quiz())->findByUniqueValue($uniqueValue);
+        if($quiz) {
+            $questions = (new Question())->getWithOptions($quiz['id']);
+            $quiz['questions'] = $questions;
+            apiResponse($quiz);
+        }
+        apiResponse([
+            'message' => 'Quiz not found'
+        ]);
+    }
+
     public function destroy(int $quizId)
     {
         $quiz = new Quiz();

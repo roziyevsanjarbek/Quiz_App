@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\DB;
 use PDO;
+use PDOException;
 
 class Quiz extends DB
 {
@@ -51,6 +52,17 @@ class Quiz extends DB
         ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public function findByUniqueValue(string $uniqueValue)
+    {
+        $query = "SELECT * FROM quizzes WHERE unique_value = :uniqueValue";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            ':uniqueValue' => $uniqueValue
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
     public function delete(int $quizId): bool
     {
         $query = "DELETE FROM quizzes WHERE id = :quizId";

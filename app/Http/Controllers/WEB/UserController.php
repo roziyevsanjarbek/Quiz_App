@@ -6,6 +6,7 @@ use JetBrains\PhpStorm\NoReturn;
 
 class UserController
 {
+
     public static function dashboard(): void
     {
         view('dashboard/dashboard');
@@ -13,22 +14,18 @@ class UserController
 
     public static function my_quizzes(): void
     {
-        view('dashboard/My_Quizzes');
+        view('dashboard/my_Quizzes');
 }
 
     public static function create_quiz(): void
     {
-        view('dashboard/Create_Quiz');
+        view('dashboard/create_Quiz');
 }
 
     public static function statistics(): void
     {
         view('dashboard/statistics');
 }
-
-    public static function take_quiz(): void{
-        view('quiz/take_quiz');
-    }
 
     public function update(int $id): void
     {

@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Take Quiz - Quiz Platform</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="flex flex-col min-h-screen bg-gray-100">
+<?php Components('main/header'); ?>
+
+<body>
+<div class="flex flex-col min-h-screen bg-gray-100">
 <!-- Navigation -->
 <nav class="bg-white shadow-lg">
     <div class="max-w-6xl mx-auto px-4">
@@ -27,8 +22,28 @@
 </nav>
 
 <!-- Main Content -->
-<main class="flex-grow container mx-auto px-4 py-8">
-    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6" id="questionContainer">
+<main class="flex-grow container mx-auto px-4 py-8" >
+    <div id="start-card" class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 ">
+        <div class="text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4" id="title">Quiz Title</h2>
+            <h3 class="text-xl text-gray-700 mb-6" id="description">Description</h3>
+
+            <div class="flex justify-center space-x-12 mb-8">
+                <div class="text-center">
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-blue-600" id="time-taken">0:00</p>
+                    <p class="text-gray-600">Time Limit</p>
+                </div>
+            </div>
+
+            <button id="start-btn" class="inline-block px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                Start Quiz
+            </button>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 hidden" id="questionContainer">
         <!-- Quiz Header -->
         <div class="flex justify-between items-center mb-6">
             <div>
@@ -88,7 +103,6 @@
                 Next
             </button>
         </div>
-
         <!-- Submit Button -->
         <div class="mt-8 text-center">
             <button id="submit-quiz" class="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700">
@@ -131,165 +145,26 @@
 </footer>
 
 <!-- Quiz JavaScript -->
-<script>
-    // Timer functionality
-    function startTimer(duration, display) {
-        let timer = duration;
-        setInterval(() => {
-            const minutes = Math.floor(timer / 60);
-            const seconds = timer % 60;
-            display.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-            if (--timer < 0) {
-                timer = 0;
-                // Handle timer completion
-            }
-        }, 1000);
-    }
-
-    // Initialize quiz
-    let options = document.getElementById('options'),
-        questions = [
-            {
-                'id':1,
-                'question': 'What is the output of console.log(typeof undefined)?',
-                'options': [
-                    {
-                        'id':1,
-                        'option_text':'undefined'
-                    },
-                    {
-                        'id':2,
-                        'option_text':'object'
-                    },
-                    {
-                        'id':3,
-                        'option_text':'string'
-                    },
-                    {
-                        'id':4,
-                        'option_text':'null'
-                    }
-                ],
-            },
-            {
-                'id':2,
-                'question': 'What is the output of console.log(typeof null)?',
-                'options': [
-                    {
-                        'id':1,
-                        'option_text':'undefined'
-                    },
-                    {
-                        'id':2,
-                        'option_text':'object'
-                    },
-                    {
-                        'id':3,
-                        'option_text':'string'
-                    },
-                    {
-                        'id':4,
-                        'option_text':'null'
-                    }
-                ],
-            },
-            {
-                'id':3,
-                'question': 'What is the output of console.log(typeof {})?',
-                'options': [
-                    {
-                        'id':1,
-                        'option_text':'undefined'
-                    },
-                    {
-                        'id':2,
-                        'option_text':'object'
-                    },
-                    {
-                        'id':3,
-                        'option_text':'string'
-                    },
-                    {
-                        'id':4,
-                        'option_text':'null'
-                    }
-                ],
-            }
-        ],
-        currentQuestionIndex = 0;
-
-    function takeQuiz(index=0) {
-        return questions[index];
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-        const timerDisplay = document.getElementById('timer');
-        startTimer(1200, timerDisplay); // 20 minutes
-
-        // Add event listeners for navigation buttons
-        document.getElementById('next-btn').addEventListener('click', () => {
-            currentQuestionIndex++;
-            let question = takeQuiz(currentQuestionIndex);
-            if (question) {
-                let questionElement = document.getElementById('question');
-                questionElement.textContent = question.question;
-                options.innerHTML = '';
-                question.options.forEach((option) => {
-                    options.innerHTML += `
-                <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
-                    <input type="radio" name="answer" class="h-4 w-4 text-blue-600" value="${option.id}">
-                    <span class="ml-3">${option.option_text}</span>
-                </label>`
+    <script>
+        async function getQuizItems() {
+            const {default: apiFetch} = await import("/js/utils/apiFetch.js");
+            await apiFetch("/quizzes/<?php echo $uniqueValue?>/getUniqueValue", {method: "GET"})
+                .then(data => {
+                   document.getElementById('title').innerText = data.title;
+                   document.getElementById('description').innerText = data.description;
+                   document.getElementById('time-taken').innerText = data.time_limit + ":00";
+                })
+                .catch((error) => {
+                    console.error(error.data.errors);
+                    document.getElementById("error").innerHTML = '';
+                    Object.keys(error.data.errors).forEach((err) => {
+                        document.getElementById("error").innerHTML += `<p class="text-red-500 mt-1">${error.data.errors[err]}</p>`;
+                    });
                 });
-            } else {
-                alert('Quiz completed');
-            }
-        });
-
-        document.getElementById('prev-btn').addEventListener('click', () => {
-            currentQuestionIndex--;
-            let question = takeQuiz(currentQuestionIndex);
-            if (question) {
-                let questionElement = document.getElementById('question');
-                questionElement.textContent = question.question;
-                options.innerHTML = '';
-                question.options.forEach((option) => {
-                    options.innerHTML += `
-                <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
-                    <input type="radio" name="answer" class="h-4 w-4 text-blue-600" value="${option.id}">
-                    <span class="ml-3">${option.option_text}</span>
-                </label>`
-                });
-            } else {
-                alert('You are at the first question');
-            }
-        });
-
-        document.getElementById('submit-quiz').addEventListener('click', () => {
-            if (currentQuestionIndex >= 2) {
-                currentQuestionIndex--;
-            }
-            console.log(currentQuestionIndex);
-            console.log(questions[currentQuestionIndex]);
-            questions.splice(currentQuestionIndex, 1);
-            let question = takeQuiz(currentQuestionIndex),
-                questionElement = document.getElementById('question'),
-                questionContainer = document.getElementById('questionContainer');
-            if (question) {
-                questionElement.textContent = question.question;
-                options.innerHTML = '';
-                question.options.forEach((option) => {
-                    options.innerHTML += `
-                <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
-                    <input type="radio" name="answer" class="h-4 w-4 text-blue-600" value="${option.id}">
-                    <span class="ml-3">${option.option_text}</span>
-                </label>`
-                });
-            } else {
-                questionContainer.innerHTML = '';
-                document.getElementById('results-card').classList.remove('hidden');
-            }
-        });
-    });
-</script>
-</body>
-</html>
+        }
+        getQuizItems();
+    </script>
+    <script src="/main/take-quiz.js"></script>
+    <script src="/js/dashboard/getUserInfo.js"></script>
+</div>
+<?php Components('main/footer') ?>

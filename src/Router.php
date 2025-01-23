@@ -107,7 +107,7 @@ class Router {
         if(self::isApiCall()){
             apiResponse(['error' => '404 Not Found'], 404);
         }
-        view("notFound");
+        view("errors/notFound");
     }
 
 }
