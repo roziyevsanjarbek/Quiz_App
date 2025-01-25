@@ -26,7 +26,7 @@ Router::put('/api/quizzes/{id}', [QuizController::class, 'update'], 'auth:api');
 
 Router::get('/api/quizzes/{id}', [QuizController::class, 'show'], 'auth:api');
 
-Router::get('/api/quizzes/{id}/getUniqueValue', [QuizController::class, 'showByUniqueValue'], 'auth:api');
+Router::get('/api/quizzes/{id}/getByUniqueValue', [QuizController::class, 'showByUniqueValue'], 'auth:api');
 
 Router::post('/api/result', [ResultController::class, 'store'], 'auth:api');
 

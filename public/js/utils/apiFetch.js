@@ -15,7 +15,7 @@ function apiFetch(uri,options = {}){
                     if(window.location.pathname === "/login" || window.location.pathname === "/register" ){
                     }else{
                         console.log(window.location.pathname);
-                        window.location.href = '/login';
+                        // window.location.href = '/login';
                     }
                 }
                 const error = new Error("HTTP error");
