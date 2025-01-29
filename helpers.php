@@ -9,7 +9,7 @@ function view(string $page, array $data = []): void
     require 'resources/views/' . $page . '.php';
 }
 
-#[NoReturn] function components(string $component, array $data = []): void
+function components(string $component, array $data = [])
 {
     extract($data);
     require 'resources/views/components/' . $component . '.php';

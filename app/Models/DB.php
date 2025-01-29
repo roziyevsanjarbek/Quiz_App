@@ -26,8 +26,8 @@ class DB
         );
     }
 
-    public function getConnectoin()
-    {
-        return $this->conn;
-    }
+        public function getConnectoin()
+        {
+            return $this->conn;
+        }
 }

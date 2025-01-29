@@ -3,9 +3,18 @@
 namespace App\Models;
 
 use App\Models\DB;
+use PDO;
 
 class Result extends DB
 {
+
+    public function find(int $id)
+    {
+        $query = "SELECT * FROM results WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function create(int $userId, int $quizId, int $limit)
     {
@@ -17,5 +26,18 @@ class Result extends DB
             ":quizId" => $quizId,
             ":finishedAt" => date("Y-m-d H:i:s", strtotime("+ $limit minutes")),
         ]);
+        $resultId = $this->conn->lastInsertId();
+        return $this->find($resultId);
+    }
+
+    public function getUserResult(int $userId, int $quizId)
+    {
+        $query = "SELECT * FROM results WHERE user_id = :userId AND quiz_id = :quizId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            ":userId" => $userId,
+            ":quizId" => $quizId,
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

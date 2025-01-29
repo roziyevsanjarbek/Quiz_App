@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AnswersController;
 use App\Http\Controllers\API\QuizController;
 
 use App\Http\Controllers\API\ResultController;
@@ -28,9 +29,9 @@ Router::get('/api/quizzes/{id}', [QuizController::class, 'show'], 'auth:api');
 
 Router::get('/api/quizzes/{id}/getByUniqueValue', [QuizController::class, 'showByUniqueValue'], 'auth:api');
 
-Router::post('/api/result', [ResultController::class, 'store'], 'auth:api');
+Router::post('/api/results', [ResultController::class, 'store'], 'auth:api');
 
-
+Router::post('/api/answers', [AnswersController::class, 'store'], 'auth:api');
 
 
 
