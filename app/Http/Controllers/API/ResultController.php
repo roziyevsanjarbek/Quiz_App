@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Result;
@@ -11,39 +12,43 @@ use Src\Auth;
 class ResultController
 {
     use Validator;
+
     public function store()
     {
-       $resultItems =  $this->validate([
+        $resultItems = $this->validate([
             'quiz_id' => 'int',
         ]);
-       $quiz = (new Quiz())->find($resultItems['quiz_id']);
+        $quiz = (new Quiz())->find($resultItems['quiz_id']);
+        if ($quiz) {
+            $result = new Result();
+            $userResult = $result->getUserResult(Auth::user()['id'], $quiz['id']);
+            if ($userResult) {
+                $CorrectAnswerCount = (new Answer())->getCorrectAnswer(Auth::user()['id'], $quiz['id'])['correctAnswerCount'];
+                $questionCount = (new Question())->getQuestionCountByQuizId($quiz['id'])['questionCount'];
+                $startedAt = strtotime($userResult['started_at']);
+                $finishedAt = strtotime($userResult['finished_at']);
+                $diff = abs($finishedAt - $startedAt);
+                $years = floor($diff / (365 * 60 * 60 * 24));
+                $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+                $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+                $hour = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24) / (60 * 60));
 
-       if ($quiz) {
-           $result = new Result();
-           $userResult = $result->getUserResult(Auth::user()['id'], $quiz['id']);
-           if($userResult){
-               $startedAt = strtotime($userResult['started_at']);
-               $finishedAt = strtotime($userResult['finished_at']);
-               $diff = abs($finishedAt - $startedAt);
-               $years = floor($diff / (365*60*60*24));
-               $months = floor(($diff - $years * 365*60*60*24)/ (30*60*60*24));
-               $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-               $hour = floor(($diff - $years * 365 *60 *60*24 - $months*30*60*60*24 - $days*60*60*24)/ (60*60));
-
-               apiResponse([
-                   'errors' => [
-                       'message' => 'You have already taken this quiz.',
-                   ],
-                   'data' => [
-                       'result' => [
-                           'id' => $resultItems['id'],
-                           'quiz_id' => $resultItems['quiz_id'],
-                           'started_at' => $resultItems['started_at'],
-                           'time_taken' => floor(($diff - $years * 365 * 60 *60 * 24 - $months *30 * 60 *60 * 24 - $days *60 * 60 * 24 - $hour * 60 * 60)/(60)),
-                       ]
-                   ]
-               ], 400);
-           }
+                apiResponse([
+                    'errors' => [
+                        'message' => 'You have already taken this quiz.',
+                    ],
+                    'data' => [
+                        'result' => [
+                            'id' => $userResult['id'],
+                            'quiz' => $quiz,
+                            'started_at' => $userResult['started_at'],
+                            'time_taken' => floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24 - $hour * 60 * 60) / (60)),
+                            'correct_answer_count' => $CorrectAnswerCount,
+                            'question_count' => $questionCount
+                        ]
+                    ]
+                ], 400);
+            }
 
             $resultData = $result->create(
                 Auth::user()['id'],
@@ -54,7 +59,7 @@ class ResultController
                 'message' => 'Result created successfully',
                 'result' => $resultData,
             ]);
-       }
+        }
         apiResponse([
             'errors' => [
                 'message' => 'Quiz not found',
@@ -62,5 +67,15 @@ class ResultController
         ]);
 
 
+    }
+
+    public function update(int $resultId)
+    {
+        $result = (new Result())->updateFinishAtByResultId($resultId);
+        if ($result) {
+            apiResponse([
+                'message' => 'Result updated successfully',
+            ]);
+        }
     }
 }

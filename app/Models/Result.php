@@ -40,4 +40,14 @@ class Result extends DB
         ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function updateFinishAtByResultId(int $resultId)
+    {
+        $query = "UPDATE results SET finished_at = NOW() WHERE id = :resultId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            ":resultId" => $resultId,
+        ]);
+        return true;
+    }
 }

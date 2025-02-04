@@ -31,6 +31,8 @@ Router::get('/api/quizzes/{id}/getByUniqueValue', [QuizController::class, 'showB
 
 Router::post('/api/results', [ResultController::class, 'store'], 'auth:api');
 
+Router::post('/api/results/{id}/finish', [ResultController::class, 'update'], 'auth:api');
+
 Router::post('/api/answers', [AnswersController::class, 'store'], 'auth:api');
 
 
