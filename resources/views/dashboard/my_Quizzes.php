@@ -105,7 +105,7 @@
                     </div>
                     <div class="flex justify-between">
                         <a href="/dashboard/quizzes/${quiz.id}/update" class="text-indigo-600 hover:text-indigo-800">Edit</a>
-                        <button class="text-green-600 hover:text-green-800" onclick="copyContent('${quiz.unique_value}')" >Share</button>
+                        <button class="text-green-600 hover:text-green-800" onclick="copyContent('/take-quiz/${quiz.unique_value}')" >Share</button>
                         <button class="text-red-600 hover:text-red-800" onclick="deleteQuiz(${quiz.id})">Delete</button>
                     </div>
                 </div>
@@ -150,13 +150,13 @@
         }
     };
 
-    // Eski usul bilan nusxalash (fallbackCopy funksiyasi)
+
     const fallbackCopy = (text) => {
         const textarea = document.createElement('textarea');
         textarea.value = text;
         document.body.appendChild(textarea);
         textarea.select();
-        document.execCommand('copy'); // Eski usul
+        document.execCommand('copy');
         document.body.removeChild(textarea);
         console.log('Copied using fallback method');
     };
