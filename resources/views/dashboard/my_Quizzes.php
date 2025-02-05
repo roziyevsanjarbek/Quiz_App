@@ -92,7 +92,7 @@
                             </button>
                         </div>
                     </div>
-                    <p class="text-gray-600 mb-4">${quiz.description}${quiz.unique_value}</p>
+                    <p class="text-gray-600 mb-4">${quiz.description}</p>
                     <div class="flex justify-between items-center mb-4">
                         <span class="text-sm text-gray-500">10 Questions</span>
                         <span class="text-sm text-gray-500">${quiz.time_limit}</span>
@@ -105,7 +105,7 @@
                     </div>
                     <div class="flex justify-between">
                         <a href="/dashboard/quizzes/${quiz.id}/update" class="text-indigo-600 hover:text-indigo-800">Edit</a>
-                        <button class="text-green-600 hover:text-green-800" onclick="copyContent('gfretgtrhg')" >Share</button>
+                        <button class="text-green-600 hover:text-green-800" onclick="copyContent('${quiz.unique_value}')" >Share</button>
                         <button class="text-red-600 hover:text-red-800" onclick="deleteQuiz(${quiz.id})">Delete</button>
                     </div>
                 </div>
@@ -135,14 +135,20 @@
     }
 
     const copyContent = async (text) => {
-        try{
-            await navigator.clipboard.writeText(text);
-            alert('Content copied to clipboard')
-        }catch (err) {
-            console.error('Failed to copy: ',err);
+        if (!navigator.clipboard) {
+            console.warn('Clipboard API not supported, using fallback method');
+            fallbackCopy(text);
+            return;
         }
-    }
 
+        try {
+            await navigator.clipboard.writeText(text);
+            console.log('Content copied successfully!');
+        } catch (err) {
+            console.error('Clipboard API failed, using fallback:', err);
+            fallbackCopy(text);
+        }
+    };
 </script>
 <?php components('dashboard/footer'); ?>
 
