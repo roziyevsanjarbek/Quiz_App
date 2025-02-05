@@ -248,7 +248,7 @@
             questionsContainer = document.getElementById('questionsContainer');
 
         async function setQuiz() {
-            const {default: apiFetch} = await import('/js/utils/apiFetch.js');
+            const {default: apiFetch} = await import("<?php echo assets('/js/utils/apiFetch.js') ?>");
             await apiFetch(`/quizzes/${<?php echo $id; ?>}`, {method: 'GET'})
                 .then((data) => {
                     console.log(data);
@@ -363,7 +363,7 @@
 
             console.log(structuredData)
 
-            const {default: apiFetch} = await import('/js/utils/apiFetch.js');
+            const {default: apiFetch} = await import("<?php echo assets('/js/utils/apiFetch.js') ?>");
             await apiFetch(`/quizzes/${<?php echo $id; ?>}`, {
                     method: 'PUT',
                     body: JSON.stringify(structuredData),

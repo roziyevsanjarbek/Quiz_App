@@ -163,7 +163,7 @@ components('main/header');
             result;
 
         async function getQuizItems() {
-            const {default: apiFetch} = await import('/js/utils/apiFetch.js');
+            const {default: apiFetch} = await import("<?php echo assets('/js/utils/apiFetch.js') ?>");
             try {
                 const data = await apiFetch(`/quizzes/<?php echo $uniqueValue; ?>/getByUniqueValue`, {
                     method: 'GET'
@@ -231,7 +231,7 @@ components('main/header');
                 // send request to an API
                 async function startQuiz() {
                     console.log(quizData)
-                    const {default: apiFetch} = await import('/js/utils/apiFetch.js');
+                    const {default: apiFetch} = await import("<?php echo assets('/js/utils/apiFetch.js') ?>");
                     await apiFetch('/results', {method: 'POST', body: JSON.stringify({quiz_id: quizData.id})})
                         .then((data) => {
                             console.log(data)
@@ -304,7 +304,7 @@ components('main/header');
                     questionContainer = document.getElementById('questionContainer');
 
                 async function submitAnswer() {
-                    const {default: apiFetch} = await import("/js/utils/apiFetch.js");
+                    const {default: apiFetch} = await import("<?php echo assets('/js/utils/apiFetch.js') ?>");
                     await apiFetch("/answers", {
                         method: "POST",
                         body: JSON.stringify({
@@ -328,7 +328,7 @@ components('main/header');
                     displayQuestion(question);
                 } else {
                     async function update() {
-                        const {default: apiFetch} = await import("/js/utils/apiFetch.js");
+                        const {default: apiFetch} = await import("<?php echo assets('/js/utils/apiFetch.js') ?>");
                         await apiFetch(`/results/${result.id}/finish`, {method: "POST"})
                             .then(data => {
                             })
