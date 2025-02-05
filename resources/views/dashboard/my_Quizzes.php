@@ -117,15 +117,6 @@
                 alert('Internetinga qarasang bolmaydimi');
             });
 
-        const copyContent = async (text) =>{
-            try{
-                await navigator.clipboard.writeText(text);
-                alert('Content copied to Clipboard');
-            }
-            catch (err){
-                console.error('Filed to copy: ',err);
-            }
-        }
     }
 
 
@@ -140,9 +131,19 @@
                 })
                 .catch((error) => {
                     alert('Internetga qarang')
-                });
+                });${quiz.unique_value}
         }
     }
+    const copyContent = async (text) =>{
+        try{
+            await navigator.clipboard.writeText(text);
+            alert('Content copied to Clipboard');
+        }
+        catch (err){
+            console.error('Filed to copy: ',err);
+        }
+    }
+    copyContent();
 
 </script>
 <?php components('dashboard/footer'); ?>
