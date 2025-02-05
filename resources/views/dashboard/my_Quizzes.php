@@ -117,6 +117,7 @@
                 alert('Internetinga qarasang bolmaydimi');
             });
 
+
     }
 
 
@@ -134,16 +135,16 @@
                 });${quiz.unique_value}
         }
     }
-    const copyContent = async (text) =>{
-        try{
+    const copyContent = async (text) => {
+        try {
             await navigator.clipboard.writeText(text);
             alert('Content copied to Clipboard');
-        }
-        catch (err){
-            console.error('Filed to copy: ',err);
+        } catch (err) {
+            console.error('Filed to copy: ', err);
         }
     }
     copyContent();
+    }
 
 </script>
 <?php components('dashboard/footer'); ?>
