@@ -92,7 +92,7 @@
                             </button>
                         </div>
                     </div>
-                    <p class="text-gray-600 mb-4">${quiz.description}</p>
+                    <p class="text-gray-600 mb-4">${quiz.description}${quiz.unique_value}</p>
                     <div class="flex justify-between items-center mb-4">
                         <span class="text-sm text-gray-500">10 Questions</span>
                         <span class="text-sm text-gray-500">${quiz.time_limit}</span>
