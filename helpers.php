@@ -15,6 +15,11 @@ function components(string $component, array $data = [])
     require 'resources/views/components/' . $component . '.php';
 }
 
+function assets($fileName): string
+{
+    return $_ENV['APP_URL'] . '/public/' . $fileName;
+}
+
 function redirect(string $url)
 {
     header('Location: ' . $url);

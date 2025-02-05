@@ -116,7 +116,7 @@
     </div>
 </div>
 </div>
-<script src="/js/dashboard/getUserInfo.js"></script>
+<script src="<?php echo assets('/js/dashboard/getUserInfo.js') ?>"></script>
 <?php components('dashboard/footer');  ?>
 
 
