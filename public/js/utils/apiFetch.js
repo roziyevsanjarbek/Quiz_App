@@ -1,5 +1,5 @@
 function apiFetch(uri,options = {}){
-    const baseUrl = 'http://localhost:8080/api',
+    const baseUrl = 'http://sanj975.beget.tech/',
         token = localStorage.getItem('token');
     const defaultHeaders = {};
     if(token){
