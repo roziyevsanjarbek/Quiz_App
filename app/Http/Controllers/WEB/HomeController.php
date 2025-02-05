@@ -6,7 +6,7 @@ class HomeController
 {
     public function Home()
     {
-        view('dashboard/dashboard');
+        view('Home');
     }
 
     public function login()
