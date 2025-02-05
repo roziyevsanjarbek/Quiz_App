@@ -149,6 +149,18 @@
             fallbackCopy(text);
         }
     };
+
+    // Eski usul bilan nusxalash (fallbackCopy funksiyasi)
+    const fallbackCopy = (text) => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy'); // Eski usul
+        document.body.removeChild(textarea);
+        console.log('Copied using fallback method');
+    };
+
 </script>
 <?php components('dashboard/footer'); ?>
 
