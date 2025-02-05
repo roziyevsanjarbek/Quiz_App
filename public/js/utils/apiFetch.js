@@ -1,5 +1,5 @@
 function apiFetch(uri,options = {}){
-    const baseUrl = 'http://sanj975.beget.tech/',
+    const baseUrl = 'http://sanj975.beget.tech/api',
         token = localStorage.getItem('token');
     const defaultHeaders = {};
     if(token){
