@@ -105,7 +105,7 @@
                     </div>
                     <div class="flex justify-between">
                         <a href="/dashboard/quizzes/${quiz.id}/update" class="text-indigo-600 hover:text-indigo-800">Edit</a>
-                        <button class="text-green-600 hover:text-green-800" onclick="copyContent('/take-quiz/${quiz.unique_value}')" >Share</button>
+                        <button class="text-green-600 hover:text-green-800" onclick="copyContent('take-quiz/${quiz.unique_value}')" >Share</button>
                         <button class="text-red-600 hover:text-red-800" onclick="deleteQuiz(${quiz.id})">Delete</button>
                     </div>
                 </div>
@@ -136,14 +136,14 @@
 
     const copyContent = async (text) => {
         if (!navigator.clipboard) {
-            console.warn('Clipboard API not supported, using fallback method');
+            alert('Clipboard API not supported, using fallback method');
             fallbackCopy(text);
             return;
         }
 
         try {
             await navigator.clipboard.writeText(text);
-            console.log('Content copied successfully!');
+            alert('Content copied successfully!');
         } catch (err) {
             console.error('Clipboard API failed, using fallback:', err);
             fallbackCopy(text);
@@ -158,7 +158,7 @@
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
-        console.log('Copied using fallback method');
+        alert('Copied using fallback method');
     };
 
 </script>
